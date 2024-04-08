@@ -2,7 +2,7 @@ import express from "express";
 const userRouter = express.Router();
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-import { authMiddleware } from "./middleware/authmiddleware";
+import { authmiddleware } from "./middleware/authmiddleware";
 import { signupmiddleware } from "./middleware/signupmiddleware";
 import { Request, Response } from "express";
 import { signinmiddleware } from "./middleware/signinmiddleware";
@@ -129,29 +129,29 @@ userRouter.post(
   }
 );
 
-userRouter.get("/user", authMiddleware, async (req: Request, res: Response) => {
+userRouter.get("/user", authmiddleware, async (req: Request, res: Response) => {
   try {
     const userId = res.locals.userId;
     console.log(userId)
-    // const user = await prisma.user.findUnique({
-    //   where: {
-    //     id: userId,
-    //   },
-    //   select: {
-    //     id: true,
-    //     email: true,
-    //     firstName: true,
-    //     lastName: true,
-    //     aiConfig: true,
-    //     todoLists: true,
-    //   },
-    // });
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        aiConfig: true,
+        todoLists: true,
+      },
+    });
 
-    // if (!user) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    res.json(userId);
+    res.json(user);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

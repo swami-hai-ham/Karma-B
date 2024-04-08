@@ -129,7 +129,7 @@ userRouter.post(
   }
 );
 
-userRouter.get("/user", async (req: Request, res: Response) => {
+userRouter.get("/user", authMiddleware, async (req: Request, res: Response) => {
   try {
     const userId = res.locals.userId;
 

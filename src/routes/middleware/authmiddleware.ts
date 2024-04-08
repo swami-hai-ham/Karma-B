@@ -27,6 +27,7 @@ export const authMiddleware = (
   try {
     const decoded = jwt.verify(token, SECRET_KEY) as JwtPayload;
     res.locals.userId = decoded.userId;
+    console.log(res.locals.userId)
     next();
   } catch (error) {
     console.error(error);

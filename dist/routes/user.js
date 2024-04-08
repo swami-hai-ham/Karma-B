@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const userRouter = express_1.default.Router();
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
+const authmiddleware_1 = require("./middleware/authmiddleware");
 const signupmiddleware_1 = require("./middleware/signupmiddleware");
 const signinmiddleware_1 = require("./middleware/signinmiddleware");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -102,9 +103,10 @@ userRouter.post("/signin", signinmiddleware_1.signinmiddleware, async (req, res)
         });
     }
 });
-userRouter.get("/user", async (req, res) => {
+userRouter.get("/user", authmiddleware_1.authMiddleware, async (req, res) => {
     try {
         const userId = res.locals.userId;
+        console.log(userId);
         const user = await prisma.user.findUnique({
             where: {
                 id: userId,

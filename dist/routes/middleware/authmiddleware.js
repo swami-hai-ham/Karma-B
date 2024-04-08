@@ -21,6 +21,7 @@ const authMiddleware = (req, res, next) => {
     try {
         const decoded = jsonwebtoken_1.default.verify(token, SECRET_KEY);
         res.locals.userId = decoded.userId;
+        console.log(res.locals.userId);
         next();
     }
     catch (error) {

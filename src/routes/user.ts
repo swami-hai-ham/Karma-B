@@ -2,7 +2,7 @@ import express from "express";
 const userRouter = express.Router();
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-import { authmiddleware } from "./middleware/authmiddleware";
+import { authMiddleware } from "./middleware/authmiddleware";
 import { signupmiddleware } from "./middleware/signupmiddleware";
 import { Request, Response } from "express";
 import { signinmiddleware } from "./middleware/signinmiddleware";
@@ -129,7 +129,7 @@ userRouter.post(
   }
 );
 
-userRouter.get("/user", authmiddleware, async (req: Request, res: Response) => {
+userRouter.get("/user", authMiddleware, async (req: Request, res: Response) => {
   try {
     const userId = res.locals.userId;
     console.log(userId)

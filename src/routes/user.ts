@@ -132,26 +132,26 @@ userRouter.post(
 userRouter.get("/user", authMiddleware, async (req: Request, res: Response) => {
   try {
     const userId = res.locals.userId;
+    console.log(userId)
+    // const user = await prisma.user.findUnique({
+    //   where: {
+    //     id: userId,
+    //   },
+    //   select: {
+    //     id: true,
+    //     email: true,
+    //     firstName: true,
+    //     lastName: true,
+    //     aiConfig: true,
+    //     todoLists: true,
+    //   },
+    // });
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        aiConfig: true,
-        todoLists: true,
-      },
-    });
+    // if (!user) {
+    //   return res.status(404).json({ message: "User not found" });
+    // }
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.json(user);
+    res.json(userId);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

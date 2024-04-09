@@ -15,7 +15,6 @@ aiRouter.post("/aiconfig", authmiddleware_1.authMiddleware, async (req, res) => 
         const findAI = await prisma.aIConfig.findFirst({
             where: {
                 userId: userId,
-                aiName: body.aiName,
             },
         });
         if (findAI) {

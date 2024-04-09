@@ -15,7 +15,6 @@ aiRouter.post(
       const findAI = await prisma.aIConfig.findFirst({
         where: {
           userId: userId,
-          aiName: body.aiName,
         },
       });
 

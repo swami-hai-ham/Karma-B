@@ -135,7 +135,7 @@ todosRouter.post(
 
       const responseMsg = await generateMessage(
         aiName?.aiName ?? "--(No character)",
-        body.todo,
+        todo.title,
         "Todo Done",
         user.firstName ?? "User"
       );

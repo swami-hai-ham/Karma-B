@@ -109,7 +109,7 @@ todosRouter.post("/tododone", authmiddleware_1.authMiddleware, async (req, res) 
                 id: todo.id,
             },
         });
-        const responseMsg = await (0, AIMessages_1.generateMessage)(aiName?.aiName ?? "--(No character)", body.todo, "Todo Done", user.firstName ?? "User");
+        const responseMsg = await (0, AIMessages_1.generateMessage)(aiName?.aiName ?? "--(No character)", todo.title, "Todo Done", user.firstName ?? "User");
         res.status(200).json({
             responseMsg,
         });

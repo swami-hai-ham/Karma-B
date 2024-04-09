@@ -110,7 +110,13 @@ todosRouter.post("/tododone", authmiddleware_1.authMiddleware, async (req, res) 
                 id: todo.id,
             },
         });
-        const responseMsg = await (0, AIMessages_1.generateMessage)(aiName?.aiName ?? "--(No character)", todo.title, "Todo Done", user.firstName ?? "User");
+        const todoAll = await prisma.todoList.findMany({
+            where: {
+                userId: userId
+            }
+        });
+        const condition = todoAll.length == 0;
+        const responseMsg = await (0, AIMessages_1.generateMessage)(aiName?.aiName ?? "--(No character)", todo.title, condition ? "Todo Done & Whole Todo list Done" : "Todo done", user.firstName ?? "User");
         res.status(200).json({
             responseMsg,
         });

@@ -135,10 +135,18 @@ todosRouter.post(
         },
       });
 
+      const todoAll = await prisma.todoList.findMany({
+        where:{
+          userId: userId
+        }
+      })
+
+      const condition = todoAll.length == 0
+
       const responseMsg = await generateMessage(
         aiName?.aiName ?? "--(No character)",
         todo.title,
-        "Todo Done",
+        condition ? "Todo Done & Whole Todo list Done": "Todo done",
         user.firstName ?? "User"
       );
 

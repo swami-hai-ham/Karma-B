@@ -54,8 +54,9 @@ todosRouter.post("/planned", authmiddleware_1.authMiddleware, async (req, res) =
                 userId: userId,
             },
         });
+        const titles = todolist.map(todo => todo.title);
         const responseMsg = await (0, AIMessages_1.generateMessage)(aiName?.aiName ?? "--(No character)", // Use nullish coalescing operator to provide a default value
-        todolist.toString(), "Todo list planned for today", user?.firstName ?? "User" // Use nullish coalescing operator to provide a default value
+        titles.toString(), "Todo list planned for today", user?.firstName ?? "User" // Use nullish coalescing operator to provide a default value
         );
         res.status(200).json({
             responseMsg,

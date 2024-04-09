@@ -62,9 +62,11 @@ todosRouter.post(
         },
       });
 
+      const titles: string[] = todolist.map(todo => todo.title)
+
       const responseMsg = await generateMessage(
         aiName?.aiName ?? "--(No character)", // Use nullish coalescing operator to provide a default value
-        todolist.toString(),
+        titles.toString(),
         "Todo list planned for today",
         user?.firstName ?? "User" // Use nullish coalescing operator to provide a default value
       );
